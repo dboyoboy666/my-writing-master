@@ -12,17 +12,17 @@ export default function Step5PolishingMirror() {
   const [highlightOriginal, setHighlightOriginal] = useState(false);
   const [highlightPolished, setHighlightPolished] = useState(false);
 
-  const handleAutoPolish = () => {
-    // 模拟AI润色（实际应该调用AI API）
+  const handleAutoPolish = async () => {
     setShowComparison(true);
-
-    const basicImprovements = draft
-      .replace(/很/, '非常')
-      .replace(/说/, '说道')
-      .replace(/走/, '漫步')
-      .replace(/看/, '凝视');
-
-    setPolishedLocal(basicImprovements);
+    try {
+      const engine = new CognitiveEngine(AI_API_KEY);
+      const response = await engine.refine(draft);
+      setPolishedLocal(response);
+    } catch (error) {
+      console.error('AI服务调用失败:', error);
+      setPolishedLocal(draft);
+      alert('润色服务暂时不可用，将显示原文');
+    }
   };
 
   const handleManualEdit = (e: React.ChangeInterceptor<HTMLTextAreaElement>) => {

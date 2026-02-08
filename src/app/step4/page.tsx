@@ -35,7 +35,7 @@ export default function Step4CompanionClimb() {
     return () => clearInterval(interval);
   }, [lastActivity, showInspirationLadder]);
 
-  const handleInputChange = (e: React.ChangeInterceptor<HTMLTextAreaElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
     setLocalDraft(value);
     setLastActivity(Date.now());
@@ -46,12 +46,14 @@ export default function Step4CompanionClimb() {
   const handleAskAI = async () => {
     if (!draft.trim()) return;
 
-    setShowAIHelper(true);
-    // 这里应该调用AI API，暂时模拟
-    setAiResponse('墨玉正在思考如何帮助你改进这一段...');
-    setTimeout(() => {
-      setAiResponse('建议：可以增加一些环境描写来烘托氛围，比如当时的天气、光线、周围的声音等。同时，试着加入更多内心感受，让读者能感受到你的情绪变化。');
-    }, 1500);
+    try {
+      const engine = new CognitiveEngine(AI_API_KEY);
+      const response = await engine.refine(draft);
+      setAiResponse(response);
+    } catch (error) {
+      console.error('AI服务调用失败:', error);
+      setAiResponse('墨玉服务暂时不可用，请稍后再试。');
+    }
   };
 
   const handleInspirationClick = () => {
@@ -79,8 +81,8 @@ export default function Step4CompanionClimb() {
     completeStep(4);
   };
 
-  const currentContext = structure?.content
-    ? Object.values(structure.content).join('\n')
+  const currentContext = structure?.slots && structure.slots.length > 0
+    ? structure.slots.map(slot => slot.content).join('\n')
     : collectedMaterials.join('\n');
 
   return (
