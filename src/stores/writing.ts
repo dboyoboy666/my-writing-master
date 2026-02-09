@@ -34,7 +34,11 @@ export const useWritingStore = create<WritingStore>()(
       totalTime: 0,
       collectedKeywords: [],
       collectedMaterials: [],
-      structure: null,
+      structure: {
+        name: '首页',
+        slots: [],
+        content: {},
+      },
       draft: '',
       polished: '',
 
@@ -54,7 +58,11 @@ export const useWritingStore = create<WritingStore>()(
           totalTime: 0,
           collectedKeywords: [],
           collectedMaterials: [],
-          structure: null,
+          structure: {
+        name: '首页',
+        slots: [],
+        content: {},
+      },
           draft: '',
           polished: '',
         }),
