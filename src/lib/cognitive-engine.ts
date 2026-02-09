@@ -10,7 +10,7 @@ import { AIMessage, CognitiveStage, SocraticQuestion } from '@/types/ai';
 
 export class CognitiveEngine {
   private apiKey: string;
-  private model: string = 'claude-3-5-sonnet-20241022';
+  private model: string = 'qwen-plus';
 
   constructor(apiKey: string) {
     this.apiKey = apiKey;
@@ -127,24 +127,27 @@ ${draft}
    */
   private async callAI(prompt: string, stage: CognitiveStage): Promise<string> {
     try {
-      const response = await fetch('https://api.anthropic.com/v1/messages', {
+      const response = await fetch('https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-api-key': this.apiKey,
-          'anthropic-version': '2023-06-01',
+          'Authorization': `Bearer ${this.apiKey}`,
         },
         body: JSON.stringify({
           model: this.model,
-          max_tokens: 1024,
-          temperature: 0.7,
-          system: '你是一位经验丰富的中学语文写作导师，擅长用启发式、苏格拉底式和批判性思维方法指导学生写作。',
-          messages: [
-            {
-              role: 'user',
-              content: prompt,
-            },
-          ],
+          input: {
+            messages: [
+              {
+                role: 'user',
+                content: prompt,
+              }
+            ]
+          },
+          parameters: {
+            max_tokens: 1024,
+            temperature: 0.7,
+            result_format: "text"
+          }
         }),
       });
 
@@ -153,7 +156,7 @@ ${draft}
       }
 
       const data = await response.json();
-      return data.content[0].text;
+      return data.output.choices[0].message.content;
     } catch (error) {
       console.error('AI API call failed:', error);
       return 'AI服务暂时不可用，请稍后再试。';
