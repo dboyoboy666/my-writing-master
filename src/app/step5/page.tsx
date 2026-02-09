@@ -16,7 +16,7 @@ export default function Step5PolishingMirror() {
   const handleAutoPolish = async () => {
     setShowComparison(true);
     try {
-      const engine = new CognitiveEngine(process.env.NEXT_PUBLIC_CLAUDE_API_KEY!);
+      const engine = new CognitiveEngine();
       const response = await engine.refine(draft);
       setPolishedLocal(response);
     } catch (error) {

@@ -48,7 +48,7 @@ export default function Step4CompanionClimb() {
     if (!draft.trim()) return;
 
     try {
-      const engine = new CognitiveEngine(process.env.NEXT_PUBLIC_CLAUDE_API_KEY!);
+      const engine = new CognitiveEngine();
       const response = await engine.refine(draft);
       setAiResponse(response);
     } catch (error) {

@@ -26,7 +26,7 @@ export default function Step2InspirationMine() {
     // 触发苏格拉底式追问
     setIsLoading(true);
     try {
-      const engine = new CognitiveEngine(AI_API_KEY);
+      const engine = new CognitiveEngine();
       const q = await engine.dig(currentMaterial);
       setQuestions(q);
     } catch (error) {

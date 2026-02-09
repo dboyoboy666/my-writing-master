@@ -9,13 +9,6 @@ import { AIMessage, CognitiveStage, SocraticQuestion } from '@/types/ai';
  */
 
 export class CognitiveEngine {
-  private apiKey: string;
-  private model: string = 'qwen-plus';
-
-  constructor(apiKey: string) {
-    this.apiKey = apiKey;
-  }
-
   /**
    * 启发式引导 - 发散思维
    */
@@ -127,36 +120,21 @@ ${draft}
    */
   private async callAI(prompt: string, stage: CognitiveStage): Promise<string> {
     try {
-      const response = await fetch('https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation', {
+      const response = await fetch('/api/ai', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.apiKey}`,
         },
-        body: JSON.stringify({
-          model: this.model,
-          input: {
-            messages: [
-              {
-                role: 'user',
-                content: prompt,
-              }
-            ]
-          },
-          parameters: {
-            max_tokens: 1024,
-            temperature: 0.7,
-            result_format: "text"
-          }
-        }),
+        body: JSON.stringify({ prompt, stage }),
       });
 
       if (!response.ok) {
-        throw new Error(`AI API error: ${response.status}`);
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'AI service unavailable');
       }
 
       const data = await response.json();
-      return data.output.choices[0].message.content;
+      return data.content;
     } catch (error) {
       console.error('AI API call failed:', error);
       return 'AI服务暂时不可用，请稍后再试。';

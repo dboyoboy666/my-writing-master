@@ -32,7 +32,7 @@ export default function Step1BaseCamp() {
 
     try {
       // 使用启发式引导分析题目
-      const engine = new CognitiveEngine(AI_API_KEY);
+      const engine = new CognitiveEngine();
       const response = await engine.spark(topic, []);
 
       setAiResponse(response);

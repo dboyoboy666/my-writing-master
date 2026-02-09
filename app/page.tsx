@@ -1,65 +1,101 @@
-import Image from "next/image";
+'use client';
+
+import { useRouter } from 'next/navigation';
+import { motion } from 'framer-motion';
+import { MountainMap } from '@/components/MountainMap';
+import { Trophy, GraduationCap, BookOpen } from 'lucide-react';
 
 export default function Home() {
+  const router = useRouter();
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            Welcome to My Writing Site
+    <div className="min-h-screen bg-gradient-to-br from-sky-400 to-emerald-500">
+      {/* 顶部标题 */}
+      <div className="container mx-auto px-4 pt-12">
+        <motion.div
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center"
+        >
+          <h1 className="text-6xl font-bold text-white mb-4 animate-bounce">
+            📝 我的随身写作大师
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="text-2xl text-white/90 mb-8">
+            基于大语言模型的沉浸式、伴随式写作指导
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+        </motion.div>
+      </div>
+
+      {/* 登山地图 */}
+      <div className="container mx-auto px-4 max-w-6xl">
+        <MountainMap />
+      </div>
+
+      {/* 核心功能卡片 */}
+      <div className="container mx-auto px-4 max-w-6xl grid md:grid-cols-3 gap-8 mt-12">
+        {/* 卡片1：教学理念 */}
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="bg-white rounded-2xl shadow-2xl p-8 hover:shadow-3xl transition-shadow"
+        >
+          <GraduationCap className="w-12 h-12 text-blue-600 mb-4" />
+          <h3 className="text-2xl font-bold mb-3">六步登山法</h3>
+          <p className="text-gray-600">
+            从审题到登顶，每一步都有墨玉的陪伴和指导，循序渐进提升写作能力。
+          </p>
+        </motion.div>
+
+        {/* 卡片2：三阶认知 */}
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+          className="bg-white rounded-2xl shadow-2xl p-8 hover:shadow-3xl transition-shadow"
+        >
+          <BookOpen className="w-12 h-12 text-purple-600 mb-4" />
+          <h3 className="text-2xl font-bold mb-3">三阶认知迭代</h3>
+          <p className="text-gray-600">
+            启发式引导 → 苏格拉底追问 → 批判性挑刺，深度挖掘写作潜能。
+          </p>
+        </motion.div>
+
+        {/* 卡片3：游戏化 */}
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+          className="bg-white rounded-2xl shadow-2xl p-8 hover:shadow-3xl transition-shadow"
+        >
+          <Trophy className="w-12 h-12 text-yellow-600 mb-4" />
+          <h3 className="text-2xl font-bold mb-3">游戏化激励</h3>
+          <p className="text-gray-600">
+            金字拼图、成就系统、巅峰庆祝，让写作变成一场有趣的冒险。
+          </p>
+        </motion.div>
+      </div>
+
+      {/* 开始写作按钮 */}
+      <div className="container mx-auto px-4 mt-16 text-center">
+        <motion.button
+          className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-16 py-6 rounded-2xl font-bold text-2xl shadow-2xl hover:shadow-3xl transition-all"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={() => router.push('/step1')}
+        >
+          🚀 立即开始写作冒险
+        </motion.button>
+
+        <p className="text-white/80 mt-8">
+          每天免费1篇，会员无限量 | 看广告解锁高阶点评
+        </p>
+      </div>
+
+      {/* 底部信息 */}
+      <footer className="mt-24 py-8 text-center text-white/60">
+        <p>© 2026 我的随身写作大师 | 让每个孩子都能享受写作的乐趣</p>
+      </footer>
     </div>
   );
 }
