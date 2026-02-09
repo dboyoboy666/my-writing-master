@@ -1,12 +1,18 @@
 'use client';
 
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useWritingStore } from '@/stores/writing';
 import { motion } from 'framer-motion';
 import { MountainMap } from '@/components/MountainMap';
 import { Trophy, GraduationCap, BookOpen } from 'lucide-react';
 
+
 export default function Home() {
   const router = useRouter();
+  useEffect(() => {
+    useWritingStore.setState({ currentStep: 0 });
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-sky-400 to-emerald-500">
