@@ -6,6 +6,12 @@ export interface AIConfig {
   temperature: number;
 }
 
+// 消息类型
+export interface AIMessage {
+  role: string;
+  content: string;
+}
+
 // 三阶认知迭代
 export type CognitiveStage = 'spark' | 'dig' | 'refine';
 

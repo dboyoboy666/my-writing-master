@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Sparkles, CheckCircle, Award } from 'lucide-react';
 import { useWritingStore } from '@/stores/writing';
+import { CognitiveEngine } from '@/lib/cognitive-engine';
 
 export default function Step5PolishingMirror() {
   const { completeStep, setPolished, draft } = useWritingStore();
@@ -15,7 +16,7 @@ export default function Step5PolishingMirror() {
   const handleAutoPolish = async () => {
     setShowComparison(true);
     try {
-      const engine = new CognitiveEngine(AI_API_KEY);
+      const engine = new CognitiveEngine(process.env.NEXT_PUBLIC_CLAUDE_API_KEY!);
       const response = await engine.refine(draft);
       setPolishedLocal(response);
     } catch (error) {
@@ -25,7 +26,7 @@ export default function Step5PolishingMirror() {
     }
   };
 
-  const handleManualEdit = (e: React.ChangeInterceptor<HTMLTextAreaElement>) => {
+  const handleManualEdit = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setPolishedLocal(e.target.value);
   };
 

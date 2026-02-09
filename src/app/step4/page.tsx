@@ -6,6 +6,7 @@ import { Edit, MessageCircle, Sparkles, CheckCircle } from 'lucide-react';
 import { useWritingStore } from '@/stores/writing';
 import { InspirationLadder } from '@/lib/inspiration-ladder';
 import { ParrotTrap } from '@/lib/parrot-trap';
+import { CognitiveEngine } from '@/lib/cognitive-engine';
 
 export default function Step4CompanionClimb() {
   const { completeStep, setDraft, collectedMaterials, structure } = useWritingStore();
@@ -47,7 +48,7 @@ export default function Step4CompanionClimb() {
     if (!draft.trim()) return;
 
     try {
-      const engine = new CognitiveEngine(AI_API_KEY);
+      const engine = new CognitiveEngine(process.env.NEXT_PUBLIC_CLAUDE_API_KEY!);
       const response = await engine.refine(draft);
       setAiResponse(response);
     } catch (error) {
