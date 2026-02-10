@@ -1,24 +1,14 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import './globals.css';
+import { MoyuBall } from '@/components/MoyuBall';
+import { NavigationGuard } from '@/components/NavigationGuard';
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: '我的随身写作大师 | AI驱动的沉浸式写作系统',
-  description: '基于qwen-plus大模型的六步登山写作法，提供启发式引导、苏格拉底追问、批判性挑刺三阶认知迭代',
-  openGraph: {
-    images: ['/og-writing-master.jpg'],
-    siteName: '我的随身写作大师',
-  },
+  title: '我的随身写作大师',
+  description: '基于大语言模型的沉浸式、伴随式中学生记叙文写作指导专家',
 };
 
 export default function RootLayout({
@@ -27,11 +17,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <html lang="zh-CN">
+      <body className={inter.className}>
         {children}
+        {/* 墨玉拟人球 - 全局组件 */}
+        <MoyuBall />
+        {/* 导航守卫 */}
+        <NavigationGuard />
       </body>
     </html>
   );
