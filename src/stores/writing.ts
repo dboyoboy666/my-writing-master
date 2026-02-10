@@ -34,12 +34,7 @@ export const useWritingStore = create<WritingStore>()(
       totalTime: 0,
       collectedKeywords: [],
       collectedMaterials: [],
-      structure: {
-        id: 'home',
-        name: '首页',
-        description: '首页初始结构',
-        slots: []
-      },
+      structure: null,
       draft: '',
       polished: '',
 
@@ -59,12 +54,7 @@ export const useWritingStore = create<WritingStore>()(
           totalTime: 0,
           collectedKeywords: [],
           collectedMaterials: [],
-          structure: {
-        id: 'home',
-        name: '首页',
-        description: '首页初始结构',
-        slots: []
-      },
+          structure: null,
           draft: '',
           polished: '',
         }),
